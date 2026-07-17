@@ -28,11 +28,20 @@ Everything runs inside your own fork using your own GitHub Secrets. Nobody, incl
 
 3. Go to your fork's [**Actions** tab](../../actions), enable workflows if it asks.
 
-4. Click **Run workflow** on "PDI Keep-Alive" to test it right now instead of waiting for the schedule.
+   
+
+5. Click **Run workflow** on "PDI Keep-Alive" to test it right now instead of waiting for the schedule.
 
 That's literally it. It runs itself every day forever, for as long as your fork exists. Set it and forget it.
 
 ## how to check it actually worked
+
+## video tutorial
+
+
+https://github.com/user-attachments/assets/271189df-e310-495c-9440-feb20a320f6a
+
+
 
 Every run saves 5 screenshots showing exactly what happened, step by step. Here's how to find them:
 
