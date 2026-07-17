@@ -1,20 +1,3 @@
-"""
-ServiceNow PDI Keep-Alive
---------------------------
-Logs into your PDI directly (not via the developer portal, straight to your
-instance url) so ServiceNow doesn't hibernate it from inactivity.
-
-Takes 5 screenshots along the way as proof of exactly what happened each run.
-Old screenshots are wiped at the start of every run so nothing stale lingers
-locally -- GitHub Actions keeps each run's uploaded artifact separate anyway,
-and old artifacts auto-expire after a set number of days (see workflow yml).
-
-Required env vars (set as GitHub Actions secrets):
-  PDI_URL   -> e.g. https://devXXXXX.service-now.com  (the INSTANCE url, not developer.servicenow.com)
-  PDI_USER  -> login username
-  PDI_PASS  -> login password
-"""
-
 import os
 import sys
 import shutil
