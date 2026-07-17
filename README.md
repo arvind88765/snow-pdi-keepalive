@@ -66,6 +66,12 @@ heads up, these auto delete after 3 days to keep things clean, so download the z
 
 also check the logs themselves while you're in there, expand "Run keep-alive script" step, look for `[SUCCESS] Logged in.` at the bottom, that's the real confirmation
 
+## Workflow
+
+<img width="501" height="1435" alt="workflow" src="https://github.com/user-attachments/assets/8ec5d2b4-2f74-4b19-b97b-6d3f6355402a" />
+
+
+
 ## heads up
 
 - MFA enabled on your PDI? this won't work, gotta disable MFA on the dev instance for this to log in
