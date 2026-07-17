@@ -36,7 +36,7 @@ That's literally it. It runs itself every day forever, for as long as your fork 
 
 Every run saves 5 screenshots showing exactly what happened, step by step. Here's how to find them:
 
-1. Go to your fork's [**Actions** tab](../../actions)
+1. Go to your fork's [**latest workflow runs**](../../actions/workflows/keepalive.yml) — newest run is always at the top
 2. Click into the run you wanna check (top one is the latest)
 3. Scroll down to the bottom of that page, past the job logs, to a section called **Artifacts**
 4. Click **keepalive-proof-X** to download it, it's a zip
