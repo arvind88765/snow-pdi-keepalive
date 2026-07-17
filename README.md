@@ -30,6 +30,10 @@ Everything runs inside your own fork using your own GitHub Secrets. Nobody, incl
 
    
 
+https://github.com/user-attachments/assets/9f61ea4a-8d90-49f3-ab89-3ad7030d3ca0
+
+
+
 5. Click **Run workflow** on "PDI Keep-Alive" to test it right now instead of waiting for the schedule.
 
 That's literally it. It runs itself every day forever, for as long as your fork exists. Set it and forget it.
