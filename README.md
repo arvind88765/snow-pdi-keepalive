@@ -10,7 +10,7 @@ Free tier PDIs sleep after a few days of no activity, and waking one back up can
 
 A GitHub Action runs once a day, spins up a headless browser (Playwright), logs into your PDI directly, and boom, your instance's activity timer resets. That's the whole trick.
 
-This isn't guesswork either, the login flow was verified against a real captured login session (HAR) from an actual PDI, so it's not some random selectors pulled from thin air. Check `har_recorder.py` if you ever wanna re-verify it yourself, useful if ServiceNow ever changes their login page.
+This isn't guesswork either, the login flow is verified and tested against a real PDI login, not some random selectors pulled from thin air.
 
 Everything runs inside your own fork using your own GitHub Secrets. Nobody, including me, ever sees your password. It never leaves your repo.
 
