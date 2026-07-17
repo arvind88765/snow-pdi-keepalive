@@ -82,6 +82,29 @@ playwright install chromium
 export $(cat .env | xargs) && python keepalive.py
 ```
 
+## why other keep-alive scripts break
+ 
+Most PDI keep-alive scripts floating around just do a raw `requests.post()` straight to `/login.do` with guessed selectors and no CSRF token. That fails silently half the time because:
+ 
+- ServiceNow's login form needs a `sysparm_ck` token embedded in the page first, skip that and the POST just gets rejected
+- guessed field names, if ServiceNow tweaks their login page even slightly, the script breaks with zero warning
+- no proof of anything, most just assume it worked and move on, so you don't find out it's broken until your PDI is already hibernating
+This repo is different because:
+ 
+- actual login flow, verified and tested against a real PDI, not guessed selectors
+- takes 5 screenshots every single run so you can literally see what happened, no blind trust needed
+- fails loudly, if login breaks it exits with an error instead of pretending everything's fine
+- runs on your own fork with your own secrets, nobody's password touches a third party server ever
+## credits
+ 
+Built this out of frustration with losing PDIs mid-project lol. If it saved you from a hibernation headache, a ⭐ on the repo means a lot and helps other devs find it too.
+ 
+PRs welcome if you wanna improve it, this is meant to be a community tool, not a one man show.
+ 
+## disclaimer
+ 
+This is a personal educational project, made to solve a real annoyance devs run into with free tier PDIs. It just automates a completely normal login, the same one you'd do by hand in a browser, nothing here bypasses security or does anything ServiceNow wouldn't want a legit developer doing. Use responsibly, don't spam it, and don't use it on instances that aren't yours.
+ 
 ## why fork + Actions instead of some hosted bot
-
+ 
 Because nobody has to trust a stranger with their password. Your creds live in your own repo's encrypted secrets, period. This repo is just the automation logic, everyone runs their own copy independently.
