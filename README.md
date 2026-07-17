@@ -26,11 +26,32 @@ Everything runs inside your own fork using your own GitHub Secrets. Nobody, incl
    | `PDI_USER` | your PDI username |
    | `PDI_PASS` | your PDI password |
 
-3. Go to the **Actions** tab, enable workflows if it asks.
+3. Go to your fork's [**Actions** tab](../../actions), enable workflows if it asks.
 
 4. Click **Run workflow** on "PDI Keep-Alive" to test it right now instead of waiting for the schedule.
 
 That's literally it. It runs itself every day forever, for as long as your fork exists. Set it and forget it.
+
+## how to check it actually worked
+
+Every run saves 5 screenshots showing exactly what happened, step by step. Here's how to find them:
+
+1. Go to your fork's [**Actions** tab](../../actions)
+2. Click into the run you wanna check (top one is the latest)
+3. Scroll down to the bottom of that page, past the job logs, to a section called **Artifacts**
+4. Click **keepalive-proof-X** to download it, it's a zip
+5. Unzip it, you'll get 5 png's:
+   - `1_initial_page.png` - what it saw when it opened your PDI
+   - `2_after_wake_attempt.png` - after trying to wake it up if it was hibernating
+   - `3_form_filled.png` - login form right before hitting submit
+   - `4_after_submit.png` - right after clicking login
+   - `5_final_landed_page.png` - the actual logged in page, this is your proof it worked
+
+if it failed instead, you'll see `5_login_failed.png` instead of the final one, open that one to see exactly what went wrong
+
+heads up, these auto delete after 3 days to keep things clean, so download the zip if you wanna keep proof long term
+
+also check the logs themselves while you're in there, expand "Run keep-alive script" step, look for `[SUCCESS] Logged in.` at the bottom, that's the real confirmation
 
 ## heads up
 
