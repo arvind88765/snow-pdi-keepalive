@@ -1,18 +1,3 @@
-"""
-ServiceNow PDI Keep-Alive
---------------------------
-Verified against a real captured login (HAR) against a direct-instance login
-(https://devXXXXX.service-now.com/) -- NOT the developer.servicenow.com portal,
-which uses a separate Okta/SSO flow. This targets the direct instance login
-form: user_name / user_password posted to /login.do (CSRF token sysparm_ck is
-already embedded in the form and submitted automatically by the browser).
-
-Required env vars (set as GitHub Actions secrets):
-  PDI_URL   -> e.g. https://devXXXXX.service-now.com  (the INSTANCE url, not developer.servicenow.com)
-  PDI_USER  -> login username
-  PDI_PASS  -> login password
-"""
-
 import os
 import sys
 from playwright.sync_api import sync_playwright
@@ -20,14 +5,6 @@ from playwright.sync_api import sync_playwright
 PDI_URL = os.environ.get("PDI_URL", "").rstrip("/")
 PDI_USER = os.environ.get("PDI_USER", "")
 PDI_PASS = os.environ.get("PDI_PASS", "")
-
-# NOTE: ServiceNow also exposes faster "is it awake" / "wake it up" API
-# endpoints (check_instance_awake, instanceInfo) under developer.servicenow.com.
-# We don't use them here because they require an authenticated Okta/SSO
-# session (a much more fragile multi-step login than the direct instance
-# form below). The direct UI login on the instance itself is simpler and
-# verified to work reliably -- good enough for a once-a-day ping.
-
 
 def fail(msg: str):
     print(f"[FAIL] {msg}")
