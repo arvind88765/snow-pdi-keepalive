@@ -1,63 +1,53 @@
-# PDI Keep-Alive
+# 🔋 PDI Keep-Alive
 
-Stop your ServiceNow **PDI (Personal Developer Instance)** from hibernating.
+Never let your ServiceNow PDI hibernate again. Fork it, add 3 secrets, done. Fully automated, zero maintenance, zero cost.
 
-Free-tier PDIs auto-sleep after a few days of inactivity, and waking one back up
-can take a long time. This repo pings your PDI on a schedule using GitHub
-Actions so you never lose it — **no server, no cost, no shared credentials.**
+## the problem
 
-## How it works
+Free tier PDIs sleep after a few days of no activity, and waking one back up can take forever. This repo pings your PDI every day using GitHub Actions so it never dies on you. No server needed, no cost, and nobody touches your password except you.
 
-A GitHub Actions workflow runs **once a day**, launches a headless browser
-(Playwright), and logs into your PDI directly (not via the developer portal —
-straight to `https://devXXXXX.service-now.com/`, which uses a simple login
-form, not Okta/SSO). That's it — your instance's activity timer resets and
-it stays awake.
+## how it works
 
-This login flow was verified against a real captured HAR of an actual PDI
-login, not guessed — see `har_recorder.py` if you ever need to re-verify it
-against your own instance (e.g. if ServiceNow changes their login page).
+A GitHub Action runs once a day, spins up a headless browser (Playwright), logs into your PDI directly, and boom, your instance's activity timer resets. That's the whole trick.
 
-Everything runs **inside your own fork**, using **your own GitHub Secrets**.
-Nobody (including the repo author) ever sees your PDI credentials.
+This isn't guesswork either, the login flow was verified against a real captured login session (HAR) from an actual PDI, so it's not some random selectors pulled from thin air. Check `har_recorder.py` if you ever wanna re-verify it yourself, useful if ServiceNow ever changes their login page.
 
-## Setup (5 minutes, one-time)
+Everything runs inside your own fork using your own GitHub Secrets. Nobody, including me, ever sees your password. It never leaves your repo.
 
-1. **Fork this repo** (top right → Fork).
+## setup, literally 5 min
 
-2. In your fork, go to **Settings → Secrets and variables → Actions → New repository secret**
-   and add these three secrets:
+1. **Fork this repo.** Top right, hit Fork.
 
-   | Secret name | Value |
+2. Go to **Settings > Secrets and variables > Actions > New repository secret** in your fork and add these 3:
+
+   | Secret | Value |
    |---|---|
-   | `PDI_URL`  | Your instance URL, e.g. `https://dev12345.service-now.com` |
-   | `PDI_USER` | Your PDI login username |
-   | `PDI_PASS` | Your PDI login password |
+   | `PDI_URL` | your instance url, like `https://dev12345.service-now.com` |
+   | `PDI_USER` | your PDI username |
+   | `PDI_PASS` | your PDI password |
 
-3. Go to the **Actions** tab of your fork and enable workflows if prompted.
+3. Go to the **Actions** tab, enable workflows if it asks.
 
-4. (Optional) Click **Run workflow** on the `PDI Keep-Alive` workflow to test it immediately.
+4. Click **Run workflow** on "PDI Keep-Alive" to test it right now instead of waiting for the schedule.
 
-That's it. It'll now run automatically every 2 days for as long as your fork exists.
+That's literally it. It runs itself every day forever, for as long as your fork exists. Set it and forget it.
 
-## Notes / limitations
+## heads up
 
-- If your PDI has MFA enabled, this script won't be able to log in — disable MFA on the dev instance, or adjust the script.
-- Adjust the schedule in `.github/workflows/keepalive.yml` (the `cron` line) if you want it to run more/less often.
-- This automates a normal login — nothing exploits or bypasses ServiceNow security.
-- Consider using a low-privilege PDI login rather than your main admin account, just as good practice.
+- MFA enabled on your PDI? this won't work, gotta disable MFA on the dev instance for this to log in
+- want it to run more/less often? edit the `cron` line in `.github/workflows/keepalive.yml`
+- this is just automating a normal login, nothing sketchy, no bypassing anything
+- pro tip, don't use your main admin creds if you can avoid it, spin up a low priv login just for this
 
-## Run it locally (optional)
+## wanna run it locally first
 
 ```bash
-cp .env.example .env   # fill in your values
+cp .env.example .env   # drop your real values in here
 pip install -r requirements.txt
 playwright install chromium
 export $(cat .env | xargs) && python keepalive.py
 ```
 
-## Why GitHub Actions instead of a hosted service?
+## why fork + Actions instead of some hosted bot
 
-Because nobody has to trust anyone else with their password. Every user's
-credentials live only in their own repo's encrypted Secrets store — this repo
-is just the automation logic, forked and run independently by each person.
+Because nobody has to trust a stranger with their password. Your creds live in your own repo's encrypted secrets, period. This repo is just the automation logic, everyone runs their own copy independently.
