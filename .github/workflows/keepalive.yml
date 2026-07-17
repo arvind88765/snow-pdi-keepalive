@@ -30,3 +30,11 @@ jobs:
           PDI_USER: ${{ secrets.PDI_USER }}
           PDI_PASS: ${{ secrets.PDI_PASS }}
         run: python keepalive.py
+
+      - name: Upload proof screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: keepalive-proof-${{ github.run_number }}
+          path: proof/*.png
+          retention-days: 3
