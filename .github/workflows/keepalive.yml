@@ -5,8 +5,8 @@ on:
     # TESTING MODE: runs every 10 minutes so you can confirm the schedule
     # trigger actually works before trusting it long term. Switch back to
     # the daily cron below once you've seen a few runs fire on their own.
-    - cron: "*/10 * * * *"
-    # - cron: "0 6 * * *"   # <-- daily version, uncomment and remove the line above once confirmed
+    
+     - cron: "0 6 * * *"   # <-- daily version, uncomment and remove the line above once confirmed
   workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
 
 jobs:
