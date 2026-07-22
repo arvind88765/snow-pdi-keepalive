@@ -1,32 +1,3 @@
-"""
-ServiceNow PDI Keep-Alive
---------------------------
-Logs into your PDI directly (not via the developer portal, straight to your
-instance url) so ServiceNow doesn't hibernate it from inactivity.
-
-Takes 5 screenshots along the way as proof of exactly what happened each run.
-Old screenshots are wiped at the start of every run so nothing stale lingers
-locally -- GitHub Actions keeps each run's uploaded artifact separate anyway,
-and old artifacts auto-expire after a set number of days (see workflow yml).
-
-NOTE on waiting: ServiceNow's UI never goes fully "network idle" -- it keeps
-background polling (session keep-alive pings, analytics beacons) running
-constantly, so wait_for_load_state("networkidle") can hang and time out for
-no real reason. We wait on "load" instead, plus poll for the login form to
-actually appear rather than guessing a fixed delay.
-
-NOTE on waking from hibernation: the wake-up interstitial page doesn't
-reliably contain any specific text like "hibernat" -- it can just be a
-mostly blank branded loading screen. So instead of text-sniffing for that
-state, we just POLL for the login form (#user_name) to show up, retrying
-for up to WAKE_TIMEOUT_MS total. This handles any wake-up screen regardless
-of its wording.
-
-Required env vars (set as GitHub Actions secrets):
-  PDI_URL   -> e.g. https://devXXXXX.service-now.com  (the INSTANCE url, not developer.servicenow.com)
-  PDI_USER  -> login username
-  PDI_PASS  -> login password
-"""
 
 import os
 import sys
